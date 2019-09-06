@@ -1,0 +1,33 @@
+      /*********************************************************************
+      /* INFORMACIÓN DE AUTORÍA DEL FUENTE DE PROGRAMA DE COMANDOS.
+      /* @Entidad: entidad propietaria del sofware.
+      /* @Descripción: se debe describir la funcionalidad del fuente de 
+	  /*               comandos.
+      /* @Creación Fecha: 2014/01/01
+      /* @Creación Ingeniero: Nombre de la persona que creo el fuente.
+      /*********************************************************************
+             PGM        PARM(&PARM1 &PARM2)
+      /*********************************************************************
+      /* DEFINICIÓN DE VARIABLES DE TRABAJO
+      /*********************************************************************
+             DCL        VAR(&PARM1)   TYPE(*CHAR) LEN(03)
+             DCL        VAR(&PARM2)   TYPE(*DEC)  LEN(10)
+      /*********************************************************************
+      /* LÓGICA DEL PROGRAMA
+      /*********************************************************************
+          IF         COND(&COD_CENT = '1') THEN(DO)
+             OVRDBF     FILE(CTRF424) TOFILE(&ARCHIVO)
+          ENDDO
+          ELSE       CMD(DO)
+             OVRDBF     FILE(CTRF425) TOFILE(&ARCHIVO)
+          ENDDO
+          CALL       PGM(CTRR424) PARM(&PARM1 &PARM2)
+
+          IF         COND(&COD_CENT = '1' *AND &TIP_PLANO = '2') +
+                     THEN(DO)
+          RTVMBRD    FILE(CTRF436) NBRCURRCD(&CAN_REG)
+          IF         COND(&CAN_REG > 0) THEN(DO)
+          CALL       PGM(CTRR436)
+          ENDDO
+		  
+		  ENDPGM

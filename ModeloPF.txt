@@ -1,0 +1,22 @@
+      **********************************************************************
+      ** INFORMACIÓN DE AUTORÍA DEL FUENTE DEL ARCHIVO FÍSICO.
+      ** @Entidad: entidad propietaria del sofware.
+      ** @Descripción: se debe describir la funcionalidad del fuente del 
+	  **               archivo físico.
+      ** @Creación Fecha: 2014/01/01
+      ** @Creación Ingeniero: Nombre de la persona que creo el fuente.
+      **********************************************************************
+      **                                                                  **
+      **********************************************************************
+     A          R FORMATOR                                                                                    
+     A            PGMC01         3A         TEXT('CÓDIGO APLICACIÓN Y PRODUCTO')                              
+     A                                      COLHDG('CÓDIGO APLICACIÓN' +                                      
+     A                                             ' Y PRODUCTO')                                             
+     A            PGMC02         2S 0       TEXT('TIPO DE IDENTIFICACIÓN +                                    
+     A                                            TITULAR')                                                   
+     A                                      COLHDG('TIPO DE IDENTIFIC' +                                      
+     A                                             'ACIÓN TITULAR')                                           
+     A            PGMC03        15P 0       TEXT('NUMERO DE IDENTIFICACIÓN +                                  
+     A                                            TITULAR')                                                   
+     A                                      COLHDG('NUMERO DE IDENTIF' +                                      
+     A                                             'ICACIÓN TITULAR')                                         

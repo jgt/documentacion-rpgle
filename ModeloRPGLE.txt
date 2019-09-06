@@ -1,0 +1,108 @@
+      **********************************************************************
+      ** INFORMACIÓN DE AUTORÍA DEL FUENTE DE PROGRAMA DE PANTALLA.
+      ** @Entidad: entidad propietaria del sofware.
+      ** @Descripción: se debe describir la funcionalidad del fuente de 
+	  **               pantalla.
+      ** @Creación Fecha: 2014/01/01
+      ** @Creación Ingeniero: Nombre de la persona que creo el fuente.
+      **********************************************************************
+      **                                                                  **
+      **********************************************************************
+      ** CONFIGURACIÓN DE OPCIONES ESPECIALES DEL PROGRAMA.
+      **********************************************************************
+     HDATEDIT(*YMD/)
+     HTIMFMT(*hms)
+     HINDENT('|')
+     HDATFMT(*ISO)
+      **********************************************************************
+      ** INCLUSIÓN DE ARCHIVOS FÍSICOS Y LÓGICOS.
+      **********************************************************************
+      * Descripción del archivo fisico y/o lógico.
+     FPGML01    UF A E           K DISK
+      **********************************************************************
+    ** INCLUSIÓN DE PROTÓTIPO PARA MANEJO DE PARÁMETROS.
+      **********************************************************************
+     DParametros...
+     D                 PR                  ExtPgm('CTRR382')
+     D Parametro1...
+     D                                1A
+     D Parametro2...
+     D                                8S 0
+     D Parametro3...
+     D                                8P 0
+     DParametros...
+     D                 PI
+     D Parametro1...
+     D                                1A
+     D Parametro2...
+     D                                8S 0
+     D Parametro3...
+     D                                8P 0
+     D**********************************************************************
+    ** INCLUSIÓN DE PROTÓTIPO PARA PROGRAMAS DE SERVICIO.
+     D**********************************************************************
+      * Definición de programa de servicio externo.
+     DProgramaServicioExterno...
+     D                 PR                  EXTPGM ('CTRR422')
+     D Parametro1...
+     D                                1A   CONST
+     D Parametro2...
+     D                                8S 0 CONST
+     D Parametro3...
+     D                                8P 0 CONST
+      **********************************************************************
+      ** ESTRUCTURA DE DATOS DEL SISTEMA
+      **********************************************************************
+      * Estructura con informaci¢n del sistema.
+     DDatosSistema...
+     D                SDS                  QUALIFIED
+     D NombrePrograma...
+     D                       344    353
+     D Estacion...
+     D                       244    253
+     D Usuario...
+     D                       254    263
+     D FechaActual...
+     D                       191    198S 0
+     D HoraActual...
+     D                       282    287S 0
+      **********************************************************************
+      ** DEFINICIÓN DE ESTRUCTURA DE DATOS
+      **********************************************************************
+      * Definición de estructura desde archivo externo.
+     DnombreEstructura...
+     D               E DS                  EXTNAME (PGMF001) DIM (5000)
+     D                                     QUALIFIED
+     D**********************************************************************
+     ** DEFINICIÓN DE VARIABLES DE TRABAJO
+     D**********************************************************************
+      * Descripción de variable de trabajo.
+     DVariable1...
+     D                 S           4000A   Inz (*Blanks)
+     D**********************************************************************
+      ** INICIO DEL CUERPO DEL PROGRAMA
+     D**********************************************************************
+      /Free
+
+        // Se monitorear n los errores.
+        Monitor;
+          Chain (4:CodigoAplicacion) PGMF001;
+          If %Found (PGMF001);
+
+          EndIf;
+        On-Error;
+        EndMon;
+
+        // Se finalizar  la aplicaci¢n.
+        *InLr = *On;
+
+        // Descripción de subrutina creada.
+        BegSr NombreSubrutina;
+
+        // Se finalizar  la rutina
+        EndSr;
+
+      /End-Free
+     D**********************************************************************
+      ** FIN DEL CUERPO DEL PROGRAMA
+     D**********************************************************************

@@ -1,0 +1,413 @@
+      **********************************************************************
+      ** INFORMACIÓN DE AUTORÍA DEL FUENTE DE PANTALLA.
+      ** @Entidad: entidad propietaria del sofware.
+      ** @Descripción: se debe describir la funcionalidad del fuente de 
+	  **               pantalla
+      ** @Creación Fecha: 2014/01/01
+      ** @Creación Ingeniero: Nombre de la persona que creo el fuente.
+      **********************************************************************
+      **                                                                  **
+      **********************************************************************
+      ** OPCIONES GENERALES DEL FUENTE DE PANTALLA                        **
+      **********************************************************************
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      INDARA
+      **********************************************************************
+      ** TIPO DE REGISTRO: Subfile                                        **
+      ** DESCRIPCIÓN: acá se configurarán los campos contenidos en el     **
+      **              Subfile.                                            **
+      **********************************************************************
+     A          R SUBFILE01                 SFL
+     A                                      LOGOUT
+     A                                      SFLNXTCHG
+     A            OPC01          1A  B 12  5VALUES(' ' '2' '4')
+     A            S1CODORI       2A  O 12 10
+     A            S1DESORI      30A  O 12 14
+     A            S1CODFRA       1A  O 12 46
+     A            S1DESFRA      20A  O 12 50
+      **********************************************************************
+      ** TIPO DE REGISTRO: Pantalla Principal                             **
+      ** DESCRIPCIÓN: acá se diseñará la pantalla principal y la          **
+	  ** información de control del Subfile.                              **
+      **********************************************************************
+     A          R PRINCIPAL                 SFLCTL(SUBFILE01)
+     A                                      SFLSIZ(1200)
+     A                                      SFLPAG(0008)
+     A                                      OVERLAY
+     A  52                                  SFLDSP
+     A N51                                  SFLDSPCTL
+     A  50                                  SFLCLR
+     A N53                                  SFLEND(*MORE)
+     A                                      CF03(03 'Salir')
+     A                                      CF06(06 'Adicionar')
+     A                                  1  2DATE
+     A                                      EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A            SYSPGM        10A  O  1 70DSPATR(HI)
+     A                                  2  2TIME
+     A                                      DSPATR(HI)
+     A                                  2 70USER
+     A                                      DSPATR(HI)
+     A                                  1 34'ENTIDAD'
+     A                                      COLOR(RED)
+     A                                  2 25'MANTENIMIENTO DE EJEMPLO'
+     A                                      COLOR(RED)
+     A                                  3  2'__________________________________-
+     A                                      ___________________________________-
+     A                                      _________'
+     A                                      COLOR(WHT)
+     A                                  7  2'Digite opciones, y luego presione -
+     A                                      Enter.'
+     A                                      COLOR(WHT)
+     A                                  8 16'4= Borrar'
+     A                                      COLOR(BLU)
+     A                                 10  4'OPC.'
+     A                                      COLOR(WHT)
+     A                                  8  2'2= Modificar'
+     A                                      COLOR(BLU)
+     A                                 10 10'COD'
+     A                                      COLOR(WHT)
+     A                                 11 10'ORI'
+     A                                      COLOR(WHT)
+     A                                 10 45'COD'
+     A                                      COLOR(WHT)
+     A                                 11 45'FRNQ'
+     A                                      COLOR(WHT)
+     A                                 11 14'DESCRIPCION'
+     A                                      COLOR(WHT)
+     A                                 11 50'DESCRIPCION'
+     A                                      COLOR(WHT)
+      **********************************************************************
+      ** TIPO DE REGISTRO: Barra de Error                                 **
+      ** DESCRIPCIÓN: acá se diseñará una barra inferior para reportar    **
+      **              errores de pantalla.                                **
+      **********************************************************************
+     A          R REC01
+     A            PMSGERR       78A  O 22  2DSPATR(HI)
+     A                                      COLOR(RED)
+     A                                 23  3'F3=Salir'
+     A                                      COLOR(BLU)
+     A                                 23 12'F6=Adicionar'
+     A                                      COLOR(BLU)
+      **********************************************************************
+      ** TIPO DE REGISTRO: Pantalla de Adición de Registro                **
+      ** DESCRIPCIÓN: Se utilizará para la insercción de registros.       **
+      **********************************************************************
+     A          R ADICION
+     A                                      CF03(03 'Salir')
+     A                                      CF02(02 'Confirmar')
+     A                                      CF12(12 'Cancelar')
+     A                                  1  2DATE
+     A                                      EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A            SYSPGM        10A  O  1 70DSPATR(HI)
+     A                                  2  2TIME
+     A                                      DSPATR(HI)
+     A                                  2 70USER
+     A                                      DSPATR(HI)
+     A                                  1 34'ENTIDAD'
+     A                                      COLOR(RED)
+     A                                  2 25'MANTENIMIENTO DE EJEMPLO'
+     A                                      COLOR(RED)
+     A                                  3  2'___________________________ ADICIÓ-
+     A                                      N DE REGISTRO _____________________-
+     A                                      _________'
+     A                                      COLOR(WHT)
+     A                                  7 18'Código Origen...............:'
+     A                                      COLOR(WHT)
+     A            ACODORI        2A  B  7 48
+     A                                  8 18'Descripción Origen.. .......:'
+     A                                      COLOR(WHT)
+     A            ADESORI       30A  B  8 48
+     A                                  9 18'Franquicia Origen ..........:'
+     A                                      COLOR(WHT)
+     A            ACODFRA        1A  B  9 48
+     A            AMSGERR       78A  O 22  2DSPATR(HI)
+     A                                      COLOR(RED)
+     A                                 23  3'F3=Salir'
+     A                                      COLOR(BLU)
+     A                                 23 12'F2=Confirmar'
+     A                                      COLOR(BLU)
+     A                                 23 25'F12=Cancelar'
+     A                                      COLOR(BLU)
+      **********************************************************************
+      ** TIPO DE REGISTRO: Pantalla de Edición de Registro                **
+      ** DESCRIPCIÓN: Se utilizará para la modificación de registros.     **
+      **********************************************************************
+     A          R EDICION
+     A                                      CF02(02 'Confirmar')
+     A                                      CF03(03 'Salir')
+     A                                      CF12(12 'Cancelar')
+     A                                  1  2DATE
+     A                                      EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A            SYSPGM        10A  O  1 70DSPATR(HI)
+     A                                  2  2TIME
+     A                                      DSPATR(HI)
+     A                                  2 70USER
+     A                                      DSPATR(HI)
+     A                                  1 34'ENTIDAD'
+     A                                      COLOR(RED)
+     A                                  2 25'MANTENIMIENTO DE EJEMPLO'
+     A                                      COLOR(RED)
+     A                                  3  2'___________________________ EDICIÓ-
+     A                                      N DE REGISTRO _____________________-
+     A                                      _________'
+     A                                      COLOR(WHT)
+     A                                  7 18'Código Origen...............:'
+     A                                      COLOR(WHT)
+     A            ACODORI        2A  O  7 48
+     A                                  8 18'Descripción ................:'
+     A                                      COLOR(WHT)
+     A            ADESORI       30A  B  8 48
+     A                                  9 18'Franquicia Origen ..........:'
+     A                                      COLOR(WHT)
+     A            ACODFRA        1A  O  9 48
+     A            ADESFRA       20A  O  9 50
+     A            EMSGERR       78A  O 22  2DSPATR(HI)
+     A                                      COLOR(RED)
+     A                                 23  3'F3=Salir'
+     A                                      COLOR(BLU)
+     A                                 23 12'F2=Confirmar'
+     A                                      COLOR(BLU)
+     A                                 23 25'F12=Cancelar'
+     A                                      COLOR(BLU)
+      **********************************************************************
+      ** TIPO DE REGISTRO: Pantalla de Borrado de Registro                **
+      ** DESCRIPCIÓN: Se utilizará para el borrado de registros.          **
+      **********************************************************************
+     A          R BORRADO
+     A                                      CF03(03 'Salir')
+     A                                      CF02(02 'Confirmar')
+     A                                      CF12(12 'Cancelar')
+     A                                  1  2DATE
+     A                                      EDTCDE(Y)
+     A                                      DSPATR(HI)
+     A            SYSPGM        10A  O  1 70DSPATR(HI)
+     A                                  2  2TIME
+     A                                      DSPATR(HI)
+     A                                  2 70USER
+     A                                      DSPATR(HI)
+     A                                  1 34'ENTIDAD'
+     A                                      COLOR(RED)
+     A                                  2 25'MANTENIMIENTO DE EJEMPLO'
+     A                                      COLOR(RED)
+     A                                  3  2'___________________________ BORRAD-
+     A                                      O DE REGISTRO _____________________-
+     A                                      _________'
+     A                                      COLOR(WHT)
+     A                                  7 18'Código Origen...............:'
+     A                                      COLOR(WHT)
+     A            ACODORI        2A  O  7 48
+     A                                  8 18'Descripción.................:'
+     A                                      COLOR(WHT)
+     A            ADESORI       30A  O  8 48
+     A                                  9 18'Franquicia Origen ..........:'
+     A                                      COLOR(WHT)
+     A            ACODFRA        1A  O  9 48
+     A            ADESFRA       20A  O  9 50
+     A            BMSGERR       78A  O 22  2DSPATR(HI)
+     A                                      COLOR(RED)
+     A                                 23  3'F3=Salir'
+     A                                      COLOR(BLU)
+     A                                 23 12'F2=Confirmar'
+     A                                      COLOR(BLU)
+     A                                 23 25'F12=Cancelar'
+     A                                      COLOR(BLU)
+
+
+      **********************************************************************
+      ** INFORMACIÓN DE AUTORÍA DEL FUENTE DE PROGRAMA DE PANTALLA.
+      ** @Entidad: entidad propietaria del sofware.
+      ** @Descripción: se debe describir la funcionalidad del fuente de 
+	  **               pantalla.
+      ** @Creación Fecha: 2014/01/01
+      ** @Creación Ingeniero: Nombre de la persona que creo el fuente.
+      **********************************************************************
+      **                                                                  **
+      **********************************************************************
+      ** CONFIGURACIÓN DE OPCIONES ESPECIALES DEL PROGRAMA.
+      **********************************************************************
+     HOPTION(*nodebugio)
+     HDATEDIT(*ymd)
+     HTIMFMT(*hms)
+     HINDENT('|')
+      **********************************************************************
+      ** INCLUSIÓN DE PANTALLAS DEL PROGRAMA.
+      **********************************************************************
+      * Descripción del fuentes de pantalla cargado en el programa.
+     FFUENTE01  CF   E             WORKSTN
+     F                                     SFILE(SUBFILE01:NRR)
+      **********************************************************************
+      ** INCLUSIÓN DE ARCHIVOS FÍSICOS Y LÓGICOS.
+      **********************************************************************
+
+      **********************************************************************
+      ** INCLUSIÓN DE PROTÓTIPO PARA MANEJO DE PARÁMETROS.
+      **********************************************************************
+     DParametros...
+     D                 PR                  ExtPgm('CTRR382')
+     DParametros...
+     D                 PI                  ExtPgm('CTRR382')
+      **********************************************************************
+      ** ESTRUCTURA DE DATOS DEL SISTEMA
+      **********************************************************************
+      * Estructura con informaci¢n del sistema.
+     DDatosSistema...
+     D                SDS                  QUALIFIED
+     D NombrePrograma...
+     D                       344    353
+     D Estacion...
+     D                       244    253
+     D Usuario...
+     D                       254    263
+     D FechaActual...
+     D                       191    198S 0
+     D HoraActual...
+     D                       282    287S 0
+      **********************************************************************
+      ** DEFINICIÓN DE ESTRUCTURA DE DATOS
+      **********************************************************************
+
+	  **********************************************************************
+      ** DEFINICIÓN DE VARIABLES DE TRABAJO
+      **********************************************************************
+     D* Se define como número relativo de registro, sirve para hacer
+     D* un conteo de los registros guardados en el subfile principal.
+     DNRR              S              4S 0 Inz(*Zeros)
+      **********************************************************************
+      ** INICIO DEL CUERPO DEL PROGRAMA
+      **********************************************************************
+      /Free
+
+        // Se ejecuta la subrutina encargada de desplegar y cargar la pantalla.
+        ExSr DesplieguePantallaPrincipal;
+
+        // Se finaliza la aplicaci¢n.
+        *InLr = *On;
+
+        // Rutina encargada de desplegar y cargar la pantalla.
+        BegSr DesplieguePantallaPrincipal;
+          DoW *In03 = *Off;
+            ExSr CargaSubfilePantalla;
+            SYSPGM = DatosSistema.NombrePrograma;
+            Write PRINCIPAL;
+            Write REC01;
+            ExFmt PRINCIPAL;
+            Clear PMSGERR;
+            Select;
+              When *In03 = *On;
+              When *In06 = *On;
+                ExSr AdicionNuevoRegistro;
+                *In06 = *Off;
+              Other;
+                ExSr EvaluacionOpcionesAdicionales;
+            EndSl;
+          EndDo;
+          *In12 = *Off;
+        EndSr;
+
+        // Rutina encargada de controlar el cargue y funcionamiento 
+		// del subfile.
+        BegSr CargaSubfilePantalla;
+          *In50 = *On;
+          *In52 = *Off;
+          Write PRINCIPAL;
+          *In50 = *Off;
+          NRR = *Zeros;
+
+            // Se guardarán los valores del subfile.
+            S1CODORI = 0;
+            S1DESORI = 0;
+            S1CODFRA = 0;
+            S1DESFRA = 0;
+
+            NRR += 1;
+            Write SUBFILE01;
+            // Se guardarán los valores del subfile.
+
+          If NRR > 0;
+            *In52 = *On;
+          EndIf;
+        EndSr;
+
+        // Rutina encargada de controlar las opciones del subfile.
+        BegSr EvaluacionOpcionesAdicionales;
+          If NRR > 0;
+            ReadC SUBFILE01;
+            DoW (Not %Eof);
+              If OPC01 = '2';
+                ExSr EdicionRegistro;
+              EndIf;
+              If OPC01 = '4';
+                ExSr BorradoRegistro;
+              EndIf;
+              ReadC SUBFILE01;
+            EndDo;
+          EndIf;
+          OPC01 = '';
+        EndSr;
+
+        // Rutina encargada de controlar las adición de un registro.
+        BegSr AdicionNuevoRegistro;
+          Clear ADICION;
+          SYSPGM = DatosSistema.NombrePrograma;
+          AMSGERR = 'Presione Enter para adicionar el registro.';
+          DoW *In03 = *Off and *In12 = *Off;
+            ExFmt ADICION;
+            Select;
+              When *In03 = *On or *In12 = *On;
+			  
+              When *In02 = *On;
+			  
+            EndSl;
+          EndDo;
+          *In12 = *Off;
+        EndSr;
+
+        // Rutina encargada de controlar la edición de un registro.
+        BegSr EdicionRegistro;
+          Clear EDICION;
+          SYSPGM = DatosSistema.NombrePrograma;
+          ACODORI = S1CODORI;
+          ADESORI = S1DESORI;
+          ACODFRA = S1CODFRA;
+          ADESFRA = S1DESFRA;
+          DoW *In03 = *Off and *In12 = *Off;
+            ExFmt EDICION;
+            Select;
+              When *In03 = *On or *In12 = *On;
+
+              When *In02 = *On;
+
+			  EndSl;
+          EndDo;
+          *In12 = *Off;
+        EndSr;
+
+        // Rutina encargada de controlar el borrado de un registro.
+        BegSr BorradoRegistro;
+          Clear BORRADO;
+          SYSPGM = DatosSistema.NombrePrograma;
+          BMSGERR = 'Presione F2 para confirmar la eliminaci¢n ' +
+                    'del registro.';
+          ACODORI = S1CODORI;
+          ADESORI = S1DESORI;
+          ACODFRA = S1CODFRA;
+          ADESFRA = S1DESFRA;
+          DoW *In03 = *Off and *In12 = *Off;
+            ExFmt BORRADO;
+            Select;
+              When *In03 = *On or *In12 = *On;
+
+              When *In02 = *On;
+
+			  EndSl;
+          EndDo;
+          *In12 = *Off;
+        EndSr;
+
+      /End-Free
+      **********************************************************************
+      ** FIN DEL CUERPO DEL PROGRAMA
+      **********************************************************************

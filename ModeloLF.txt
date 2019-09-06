@@ -1,0 +1,14 @@
+      **********************************************************************
+      ** INFORMACIÓN DE AUTORÍA DEL FUENTE DEL ARCHIVO FÍSICO.
+      ** @Entidad: entidad propietaria del sofware.
+      ** @Descripción: se debe describir la funcionalidad del fuente del 
+	  **               archivo físico.
+      ** @Creación Fecha: 2014/01/01
+      ** @Creación Ingeniero: Nombre de la persona que creo el fuente.
+      **********************************************************************
+      **                                                                  **
+      **********************************************************************
+     A                                      UNIQUE
+     A          R FORMATOR                  PFILE(CTRF382)
+     A          K PGMC01                                                                                   
+     A          K PGMC02                                                                                   
